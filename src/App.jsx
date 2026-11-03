@@ -10,6 +10,9 @@ const iconPaths = {
   CircleHelp: <><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></>,
   Code2: <><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/></>,
   Search: <><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></>,
+  Settings: <><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.5.9l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.5-.9l-1.7.7-1.4-2.4 1.4-1.1a7 7 0 0 1 0-1.8L6.3 12.2l1.4-2.4 1.7.7a8 8 0 0 1 1.5-.9l.3-1.8H14l.3 1.8a8 8 0 0 1 1.5.9l1.7-.7 1.4 2.4-1.4 1.1a7 7 0 0 1-.1 1.7Z"/></>,
+  Moon: <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>,
+  Sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></>,
   Sparkles: <><path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z"/><path d="m19 14 1.1 2.9L23 18l-2.9 1.1L19 22l-1.1-2.9L15 18l2.9-1.1L19 14Z"/></>,
   X: <><path d="m18 6-12 12"/><path d="m6 6 12 12"/></>,
 };
@@ -18,6 +21,7 @@ const Icon = ({ name, size = 16 }) => <svg width={size} height={size} viewBox="0
 const categories = ['Todos', ...new Set(exercises.map((exercise) => exercise.category))];
 const initial = (exercise) => Object.fromEntries(exercise.fields.map((field) => [field.name, field.type === 'workers' ? [{ hours: '', rate: '' }] : field.placeholder || '']));
 const format = (value) => typeof value === 'number' ? new Intl.NumberFormat('es-DO', { maximumFractionDigits: 4 }).format(value) : value;
+const normalize = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es');
 
 export default function App() {
   const [selected, setSelected] = useState(null);
@@ -27,8 +31,21 @@ export default function App() {
   const [results, setResults] = useState(null);
   const [error, setError] = useState('');
   const [workerRows, setWorkerRows] = useState([{ hours: '', rate: '' }]);
+  const [optionsOpen, setOptionsOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    try { return localStorage.getItem('algoritmoslab-theme') === 'dark' ? 'dark' : 'light'; }
+    catch { return 'light'; }
+  });
   const selectedPanelRef = useRef(null);
-  const visible = useMemo(() => exercises.filter((exercise) => (category === 'Todos' || exercise.category === category) && `${exercise.title} ${exercise.description} ${exercise.category} ${exercise.id}`.toLowerCase().includes(query.toLowerCase().trim())), [category, query]);
+  const visible = useMemo(() => {
+    const search = normalize(query.trim());
+    return exercises.filter((exercise) => (category === 'Todos' || exercise.category === category) && normalize(`${exercise.title} ${exercise.description} ${exercise.category} ${exercise.id}`).includes(search));
+  }, [category, query]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem('algoritmoslab-theme', theme); } catch { /* El tema sigue disponible durante esta visita. */ }
+  }, [theme]);
 
   useEffect(() => {
     if (selected) selectedPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -63,7 +80,7 @@ export default function App() {
   };
 
   return <div className="app-shell">
-    <header className="topbar"><a href="#inicio" className="brand" onClick={() => { setSelected(null); setQuery(''); }}><span className="brand-icon"><Icon name="Code2" size={19} /></span><span>Algoritmos<span className="brand-soft">Lab</span></span></a><div className="topbar-note"><span className="rd-flag" role="img" aria-label="República Dominicana"><i/><i/><i/><i/></span><span className="local-note">Hecho en RD</span><span className="topbar-divider">·</span>30 mini aplicaciones <span className="topbar-divider">·</span> React interactivo</div><a className="top-link" href="#catalogo">Explorar <Icon name="ArrowRight" size={15}/></a></header>
+    <header className="topbar"><a href="#inicio" className="brand" onClick={() => { setSelected(null); setQuery(''); }}><span className="brand-icon"><Icon name="Code2" size={19} /></span><span>Algoritmos<span className="brand-soft">Lab</span></span></a><div className="topbar-note"><span className="rd-flag" role="img" aria-label="República Dominicana"><i/><i/><i/><i/></span><span className="local-note">Hecho en RD</span><span className="topbar-divider">·</span>30 mini aplicaciones <span className="topbar-divider">·</span> React interactivo</div><div className="header-actions"><a className="top-link" href="#catalogo">Explorar <Icon name="ArrowRight" size={15}/></a><div className="options-wrap"><button className="options-button" type="button" aria-expanded={optionsOpen} aria-controls="options-menu" onClick={() => setOptionsOpen((open) => !open)}><Icon name="Settings" size={16}/><span>Opciones</span></button>{optionsOpen && <div className="options-menu" id="options-menu"><div className="options-heading"><div><b>Opciones</b><small>Personaliza tu experiencia</small></div><button type="button" className="options-close" onClick={() => setOptionsOpen(false)} aria-label="Cerrar opciones"><Icon name="X" size={15}/></button></div><div className="theme-option"><span className="theme-icon"><Icon name={theme === 'dark' ? 'Moon' : 'Sun'} size={17}/></span><span className="theme-copy"><b>Tema oscuro</b><small>Usar colores oscuros en la página</small></span><button className={`theme-switch ${theme === 'dark' ? 'on' : ''}`} type="button" role="switch" aria-checked={theme === 'dark'} aria-label="Cambiar tema oscuro" onClick={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}><span/></button></div><div className="options-footer">Tu preferencia se guarda en este dispositivo.</div></div>}</div></div></header>
 
     <main id="inicio">
       <section className="hero">

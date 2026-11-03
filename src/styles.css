@@ -58,3 +58,82 @@
 .footer .student-signature strong{color:#34496e;font:700 10px Manrope,sans-serif}
 .footer .student-signature small{color:#8a94a7;font:8px var(--mono)}
 @media(max-width:760px){.footer .student-signature{order:2}.footer>span:nth-child(3){order:3;width:100%;text-align:center}.footer>span:last-child{order:4;width:100%;text-align:center}}
+.header-actions{display:flex;align-items:center;gap:8px}
+.topbar{position:relative}
+.options-wrap{position:relative}
+.options-button{height:37px;display:flex;align-items:center;gap:7px;padding:0 11px;color:#46536b;background:#fff;border:1px solid #e2e6ef;border-radius:9px;font:700 11px 'DM Sans',sans-serif;cursor:pointer;transition:border-color .18s,background .18s}
+.options-button:hover,.options-button[aria-expanded="true"]{color:#2854a4;background:#f7f9ff;border-color:#b8c9e9}
+.options-menu{position:absolute;z-index:5;top:calc(100% + 10px);right:0;width:min(290px,calc(100vw - 34px));padding:14px;background:#fff;border:1px solid #e5e8f0;border-radius:13px;box-shadow:0 18px 50px #26365324;animation:options-in .16s ease-out}
+@keyframes options-in{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.options-heading{display:flex;justify-content:space-between;align-items:start;padding-bottom:12px;border-bottom:1px solid #eef0f5}
+.options-heading div{display:grid;gap:3px}
+.options-heading b{color:#30394b;font:700 13px Manrope,sans-serif}
+.options-heading small,.theme-copy small{color:#9299a9;font-size:9px}
+.options-close{width:25px;height:25px;display:grid;place-items:center;color:#7d8799;background:#f7f8fb;border:0;border-radius:7px;cursor:pointer}
+.theme-option{display:flex;align-items:center;gap:9px;padding:13px 1px 12px}
+.theme-icon{width:31px;height:31px;display:grid;place-items:center;color:#315ba6;background:#edf3ff;border-radius:9px}
+.theme-copy{display:grid;gap:3px;flex:1}
+.theme-copy b{color:#3e4759;font-size:11px}
+.theme-switch{width:38px;height:22px;display:flex;align-items:center;padding:3px;background:#c5cad4;border:0;border-radius:20px;cursor:pointer;transition:background .2s}
+.theme-switch span{width:16px;height:16px;background:#fff;border-radius:50%;box-shadow:0 1px 3px #0002;transition:transform .2s}
+.theme-switch.on{background:#315ba6}
+.theme-switch.on span{transform:translateX(16px)}
+.options-footer{padding-top:9px;color:#9ba1ae;border-top:1px solid #eef0f5;font-size:9px}
+@media(max-width:760px){.header-actions{gap:6px}.options-button{width:35px;height:35px;justify-content:center;padding:0}.options-button span{display:none}.top-link{height:35px}}
+
+html[data-theme="dark"],html[data-theme="dark"] body{background:#121722;color:#e9edf7}
+html[data-theme="dark"] .app-shell{color:#e9edf7}
+html[data-theme="dark"] .topbar,html[data-theme="dark"] .footer{border-color:#2a3242}
+html[data-theme="dark"] .brand,html[data-theme="dark"] .brand-soft{color:#f0f3fb}
+html[data-theme="dark"] .topbar-note,html[data-theme="dark"] .footer,html[data-theme="dark"] .section-heading p{color:#9ca8bc}
+html[data-theme="dark"] .topbar-note .local-note{color:#e5eaf5}
+html[data-theme="dark"] .top-link,html[data-theme="dark"] .options-button{color:#dce5f4;background:#1a2230;border-color:#303b50}
+html[data-theme="dark"] .top-link:hover,html[data-theme="dark"] .options-button:hover,html[data-theme="dark"] .options-button[aria-expanded="true"]{color:#fff;background:#222d40;border-color:#546d9b}
+html[data-theme="dark"] .hero{border-color:#2c3548;background:radial-gradient(ellipse at 79% 35%,#202b43 0,#20263b 22%,transparent 51%),radial-gradient(ellipse at 100% 100%,#35232e 0,transparent 36%),linear-gradient(110deg,#1a2130 0,#1a2130 66%,#20283b 100%)}
+html[data-theme="dark"] .hero h1,html[data-theme="dark"] .section-heading h2{color:#f0f3fb}
+html[data-theme="dark"] .hero h1 span{color:#91b3ff}
+html[data-theme="dark"] .hero-copy p,html[data-theme="dark"] .exercise-description{color:#a5afc0}
+html[data-theme="dark"] .hero-foot{color:#929db0}
+html[data-theme="dark"] .art-window,html[data-theme="dark"] .hero-badge{background:#202a3a;border-color:#38445b;box-shadow:0 24px 60px #080c1480}
+html[data-theme="dark"] .art-dots{border-color:#394456}
+html[data-theme="dark"] .art-code{color:#d8dfec}
+html[data-theme="dark"] .art-orbit.orbit-one{background:#222d40;border-color:#425271}
+html[data-theme="dark"] .count-pill,html[data-theme="dark"] .sidebar,html[data-theme="dark"] .exercise-card,html[data-theme="dark"] .exercise-panel,html[data-theme="dark"] .learning-strip{background:#1a2230;border-color:#303b50}
+html[data-theme="dark"] .count-pill{color:#a5afc0}
+html[data-theme="dark"] .search-label,html[data-theme="dark"] .card-title,html[data-theme="dark"] .exercise-panel h3,html[data-theme="dark"] .results-title b,html[data-theme="dark"] .learning-strip b{color:#e2e8f3}
+html[data-theme="dark"] .searchbox,html[data-theme="dark"] .field input,html[data-theme="dark"] .field textarea{color:#e6ebf5;background:#131a26;border-color:#354055}
+html[data-theme="dark"] .searchbox input,html[data-theme="dark"] .field input{color:#e6ebf5}
+html[data-theme="dark"] .searchbox kbd,html[data-theme="dark"] .reset-button,html[data-theme="dark"] .remove-row,html[data-theme="dark"] .close-button{color:#b7c1d2;background:#202a39;border-color:#3a465a}
+html[data-theme="dark"] .filter-title,html[data-theme="dark"] .category-count,html[data-theme="dark"] .card-number,html[data-theme="dark"] .card-description,html[data-theme="dark"] .exercise-description,html[data-theme="dark"] .field small,html[data-theme="dark"] .learning-strip div span{color:#9ca8bc}
+html[data-theme="dark"] .category{color:#b7c1d2}
+html[data-theme="dark"] .category:hover{background:#222d40}
+html[data-theme="dark"] .category.active{color:#c5d5ff;background:#263653}
+html[data-theme="dark"] .card-category,html[data-theme="dark"] .card-open{color:#a8c2ff}
+html[data-theme="dark"] .card-icon,html[data-theme="dark"] .exercise-icon,html[data-theme="dark"] .theme-icon{background:#283856}
+html[data-theme="dark"] .exercise-card:hover{border-color:#657ca7;box-shadow:0 8px 22px #05080e66}
+html[data-theme="dark"] .exercise-card.is-selected{background:linear-gradient(145deg,#263554,#1c2535 65%,#30242f);border-color:#8da8df;box-shadow:0 10px 26px #080d18,0 0 0 3px #8da8df24}
+html[data-theme="dark"] .exercise-card.is-selected .card-title,html[data-theme="dark"] .exercise-card.is-selected .card-open{color:#c7d7ff}
+html[data-theme="dark"] .exercise-card.is-selected .card-number{color:#dce6ff;background:#354970}
+html[data-theme="dark"] .exercise-card.is-selected .card-icon{background:#314467;box-shadow:inset 0 0 0 1px #536b96}
+html[data-theme="dark"] .active-app-banner{color:#d5e1ff;background:linear-gradient(100deg,#253654,#202a3b 72%,#352630);border-color:#3e5276}
+html[data-theme="dark"] .active-app-banner b{color:#d9e4ff;background:#2c3d5d;border-color:#465c83}
+html[data-theme="dark"] .exercise-panel{background:linear-gradient(160deg,#1c2534 60%,#202538);border-color:#6c80a7;box-shadow:0 14px 36px #05091380}
+html[data-theme="dark"] .exercise-panel-head{border-color:#303b50}
+html[data-theme="dark"] .results-box,html[data-theme="dark"] .options-menu{background:#202a3a;border-color:#3a465d}
+html[data-theme="dark"] .results-title{border-color:#39465b}
+html[data-theme="dark"] .result-row{color:#b4bfd0;border-color:#394354}
+html[data-theme="dark"] .result-row strong{color:#e4eaf4}
+html[data-theme="dark"] .result-row.result-highlight span,html[data-theme="dark"] .result-row.result-highlight strong{color:#c4d5ff}
+html[data-theme="dark"] .options-heading{border-color:#394456}
+html[data-theme="dark"] .options-heading b,html[data-theme="dark"] .theme-copy b{color:#e4eaf4}
+html[data-theme="dark"] .options-heading small,html[data-theme="dark"] .theme-copy small,html[data-theme="dark"] .options-footer{color:#a4aec0}
+html[data-theme="dark"] .options-close{color:#c1cad8;background:#2c3749}
+html[data-theme="dark"] .theme-switch{background:#687386}
+html[data-theme="dark"] .theme-switch.on{background:#6685c3}
+html[data-theme="dark"] .tip-card,html[data-theme="dark"] .empty-state{color:#adb8cb;background:#202938;border-color:#374257}
+html[data-theme="dark"] .tip-card b,html[data-theme="dark"] .empty-state b{color:#e0e6f1}
+html[data-theme="dark"] .tip-card span,html[data-theme="dark"] .empty-state span{color:#a7b1c3}
+html[data-theme="dark"] .learning-count{color:#c5d5ff;background:#293957}
+html[data-theme="dark"] .footer .student-signature{background:#1b2433;border-color:#39475d}
+html[data-theme="dark"] .footer .student-signature strong{color:#dce6f8}
+html[data-theme="dark"] .footer .student-signature small{color:#a8b4c8}
